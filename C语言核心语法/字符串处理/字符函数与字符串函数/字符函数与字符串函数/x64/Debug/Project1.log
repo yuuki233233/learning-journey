@@ -1,3 +1,0 @@
-﻿  不使用strcmp判断字符串.c
-D:\c-learning-journey\字符函数与字符串函数\字符串函数\不使用strcmp判断字符串.c(20,1): warning C4715: “my_strcmp”: 不是所有的控件路径都返回值
-  Project1.vcxproj -> D:\c-learning-journey\字符函数与字符串函数\x64\Debug\字符函数与字符串函数.exe

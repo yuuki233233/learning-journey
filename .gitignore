@@ -1,20 +1,34 @@
-# VS2022 文件和缓存
+# VS2022 编译输出和缓存
 .vs/
 *.sln
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
-Debug/
-Release/
+
+# 编译输出目录
+[Dd]ebug/
+[Rr]elease/
 x64/
 x86/
+[Bb]in/
+[Oo]bj/
+
+# 可执行文件和调试文件
 *.exe
-*.obj
 *.pdb
 *.ilk
-*.log
+*.obj
+*.lib
+*.dll
 
-# VS内部缓存和索引
+# VS编译日志和临时文件
+*.tlog
+*.idb
+*.log
+*.recipe
+vc143.*
+
+# VS内部缓存
 **/CopilotIndices/
 **/FileContentIndex/
 **/v17/
@@ -28,8 +42,8 @@ Thumbs.db
 *.temp
 *.cache
 
-# 编译输出
+# 其他编译输出
 *.out
 *.o
 *.so
-*.dll
+*.a

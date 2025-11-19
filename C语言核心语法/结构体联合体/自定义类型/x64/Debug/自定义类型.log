@@ -1,3 +1,0 @@
-﻿  柔性数组2.c
-D:\c-learning-journey\自定义类型\柔性数组2.c(40,6): warning C4133: “=”: 从“int *”到“S *”的类型不兼容
-  自定义类型.vcxproj -> D:\c-learning-journey\自定义类型\x64\Debug\自定义类型.exe

@@ -1,5 +1,0 @@
-﻿  函数实现.c
-  扫雷.c
-D:\c-learning-journey\游戏项目\扫雷游戏\函数实现.c(39,11): warning C4013: “rand”未定义；假设外部返回 int
-  正在生成代码...
-  扫雷实现.vcxproj -> D:\c-learning-journey\游戏项目\扫雷游戏\扫雷实现\x64\Debug\扫雷实现.exe
