@@ -161,3 +161,84 @@
 //	printf("%d\n", b);
 //	return 0;
 //}
+
+//#define _CRT_SECURE_NO_WARNINGS 1
+//#include <iostream>
+//using namespace std;
+//
+//int main()
+//{
+//	int a = 0;
+//	double b = 0.1;
+//	char c = 'x';
+//
+//	cout << a << " " << b << " " << c << endl;
+//	std::cout << a << " " << b << " " << c << std::endl;
+//
+//	// 可以?动识别变量的类型
+//	cin >> a >> b >> c;
+//	cout << a << " " << b << " " << c << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//using namespace std;
+//int main()
+//{
+//	// 在io需求?较?的地?，如部分?量输?的竞赛题中，加上以下3?代码
+//	// 可以提?C++IO效率
+//	ios_base::sync_with_stdio(false);
+//	cin.tie(nullptr);
+//	cout.tie(nullptr);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<assert.h>
+//using namespace std;
+//
+//void Func(int a = 0)
+//{
+//	cout << a << endl;
+//}
+//
+//int main()
+//{
+//	Func();
+//	Func(10);
+//
+//	return 0;
+//}
+
+#include <iostream>
+using namespace std;
+
+// 全缺省
+void Func1(int a = 10, int b = 20, int c = 30)
+{
+	cout << "a = " << a << endl;
+	cout << "b = " << b << endl;
+	cout << "c = " << c << endl << endl;
+}
+
+// 半缺省
+void Func2(int a, int b = 10, int c = 20)
+{
+	cout << "a = " << a << endl;
+	cout << "b = " << b << endl;
+	cout << "c = " << c << endl << endl;
+}
+
+int main()
+{
+	Func1();
+	Func1(1);
+	Func1(1, 2);
+	Func1(1, 2, 3);
+
+	Func2(100);
+	Func2(100, 200);
+	Func2(100, 200, 300);
+
+	return 0;
+}
