@@ -241,15 +241,31 @@ private:
 	size_t _top;
 };
 
+//int main()
+//{
+//	Stack st1;
+//	st1.Push(1);
+//	st1.Push(2);
+//
+//	// Stack不显示实现拷贝构造，用自动生成的拷贝构造完成浅拷贝
+//	// 会导致st1和st2里面的_a指针指向同一块资源，析构时会析构两次，程序崩溃
+//	Stack st2(st1);
+//
+//	return 0;
+//}
+
+
+void func(const Stack& st)
+{
+
+}
+
 int main()
 {
 	Stack st1;
 	st1.Push(1);
 	st1.Push(2);
 
-	// Stack不显示实现拷贝构造，用自动生成的拷贝构造完成浅拷贝
-	// 会导致st1和st2里面的_a指针指向同一块资源，析构时会析构两次，程序崩溃
-	Stack st2(st1);
-
-	return 0;
+	func(st1);
 }
+
