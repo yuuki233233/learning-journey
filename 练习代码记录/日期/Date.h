@@ -1,4 +1,5 @@
 #pragma once
+#include<assert.h>
 #include<iostream>
 using namespace std;
 
@@ -10,6 +11,12 @@ public:
 		_year = year;
 		_month = month;
 		_day = day;
+
+		if (!CheckDate())
+		{
+			cout << "非法日期";
+			Print();
+		}
 	}
 
 	void Print()
@@ -19,6 +26,8 @@ public:
 
 	inline int GetMonthDay(int year, int month)
 	{
+		assert(month > 0 && month < 13);
+
 		static int MontDayArray[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
 		if ((month == 2 && ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)))
 		{
@@ -27,20 +36,26 @@ public:
 		return MontDayArray[month];
 	}
 
-	 /*bool CheckDate();
+	 bool CheckDate();
 	
 	 bool operator<(const Date & d);
 	 bool operator<=(const Date & d);
 	 bool operator>(const Date & d);
 	 bool operator>=(const Date & d);
 	 bool operator==(const Date & d);
-	 bool operator!=(const Date & d);*/
+	 bool operator!=(const Date & d);
 
 	 Date& operator+=(int day);
 	 Date operator+(int day);
 
 	 Date& operator-=(int day);
 	 Date operator-(int day);
+
+	 Date operator++(int);
+	 Date& operator++();
+
+	 Date operator--(int);
+	 Date& operator--();
 
 	 int operator-(const Date& d);
 
