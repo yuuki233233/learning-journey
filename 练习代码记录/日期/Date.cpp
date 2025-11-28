@@ -204,3 +204,25 @@ int Date::operator-(const Date& d)
 
 	return n * flag;
 }
+
+
+//ostream& Date::operator<<(ostream& out)
+//{
+//	out << _year << "年" << _month << "月" << _day << "日" << endl;
+//	return out;
+//}
+
+ostream& operator<<(ostream& out, const Date& d)
+{
+	out << d._year << "年" << d._month << "月" << d._day << "日" << endl;
+
+	return out;
+}
+
+istream& operator>>(istream& in, Date& d)
+{
+	cout << "请输入年月日:>";
+	in >> d._year >> d._month >> d._day;
+
+	return in;
+}
