@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"Date.h"
 
+//类外定义，需要运用到命名空间的知识
 bool Date::CheckDate()
 {
 	if (_month < 1 || _month > 12
@@ -14,9 +15,9 @@ bool Date::CheckDate()
 	}
 }
 
-
 Date& Date::operator+=(int day)
 {
+	//实现日期改变
 	if (day < 0)
 	{
 		return *this -= (-day);
