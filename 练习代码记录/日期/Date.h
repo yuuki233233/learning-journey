@@ -5,6 +5,11 @@ using namespace std;
 
 class Date
 {
+	//友元函数
+	friend ostream& operator<<(ostream& out, const Date& d);
+
+	friend istream& operator>>(istream& in, Date& d);
+
 public:
 	Date(int year = 1990, int month = 1, int day = 1)
 	{
@@ -59,8 +64,16 @@ public:
 
 	 int operator-(const Date& d);
 
+	 //this接收d、io流只能在第二位
+	 //ostream& operator<<(ostream& out);
+
 private:
 	int _year;
 	int _month;
 	int _day;
 };
+
+//用全局，可将this做为io流，d在第二位
+ostream& operator<<(ostream& out, const Date& d);
+
+istream& operator>>(istream& in, Date& d);
