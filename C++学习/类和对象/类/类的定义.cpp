@@ -6,7 +6,7 @@ using namespace std;
 
 class Stack
 {
-//公有
+	//公有
 public:
 	//成员函数
 	void Init(int n = 4)
@@ -51,7 +51,7 @@ public:
 		top = capacity = 0;
 	}
 
-//私有
+	//私有
 private:
 	//成员变量
 	int* array;
