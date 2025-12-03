@@ -1,20 +1,23 @@
 //#define _CRT_SECURE_NO_WARNINGS
-#include<iostream>
-#include<string>
-using namespace std;
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//int main()
+//{
+//	string s1("hello world");
+//
+//	// 下标 + []		
+//	for (size_t i = 0; i < s1.size(); i++)
+//	{
+//		cout << s1[i] << " ";
+//	}
+//	cout << endl;
+//
+//	return 0;
+//}
 
-int main()
-{
-	string s1("hello world");
-
-	for (size_t i = 0; i < s1.size(); i++)
-	{
-		cout << s1[i] << " ";
-	}
-	cout << endl;
-
-	return 0;
-}
+//string类常用接口/访问及遍历/
 
 //#include<iostream>
 //#include<string>
@@ -160,13 +163,36 @@ int main()
 //}
 
 
-//////string类的常用接口
+////string类的常用接口
 //#include<iostream>
+//#include<string>
 //using namespace std;
 //
 //int main()
 //{
-//	
+//	//构造空的string类对象，即空字符串
+//	string s1;
+//
+//	//用C-string来构造string类对象
+//	string s2("hello world");
+//
+//	//拷贝构造函数
+//	string s3(s2);
+//	cin >> s1;
+//	cout << s1 << endl;
+//	cout << s2 << endl;
+//	cout << s3 << endl;
 //
 //	return 0;
 //}
+
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+
+
+	return 0;
+}
