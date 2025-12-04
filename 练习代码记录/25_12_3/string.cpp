@@ -187,23 +187,24 @@
 //}
 
 
-#include<iostream>
-using namespace std;
-
-int main()
-{
-	string s1("hello world");
-	cout << s1.size() << endl;  //11
-	cout << s1.empty() << endl; //0
-	s1.clear();
-	cout << s1 << endl; //打印空
-
-	string s2;
-	s2.reserve(100);
-	cout << s2.capacity() << endl; //111
-
-	s2.resize(4, 'c');
-	cout << s2 << endl;
-
-	return 0;
-}
+//#include<iostream>
+//using namespace std;
+//
+//int main()
+//{
+//	string s1("hello world");
+//	cout << s1.size() << endl;  //11
+//	cout << s1.empty() << endl; //0
+//	s1.clear();
+//	cout << s1 << endl; //打印空
+//
+//	string s2;
+//	s2.reserve(100);
+//	cout << s2.capacity() << endl; //111
+//
+//	//左(要初始化个数)：右(初始化的字符)
+//	s2.resize(4, 'c');
+//	cout << s2 << endl; //cccc
+//
+//	return 0;
+//}
