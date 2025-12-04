@@ -192,7 +192,18 @@ using namespace std;
 
 int main()
 {
+	string s1("hello world");
+	cout << s1.size() << endl;  //11
+	cout << s1.empty() << endl; //0
+	s1.clear();
+	cout << s1 << endl; //´òÓ¡¿Õ
 
+	string s2;
+	s2.reserve(100);
+	cout << s2.capacity() << endl; //111
+
+	s2.resize(4, 'c');
+	cout << s2 << endl;
 
 	return 0;
 }
