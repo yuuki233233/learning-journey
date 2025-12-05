@@ -167,7 +167,22 @@ void Test06()
 //============================================
 void Test07()
 {
+	string s1("test.cpp");
+	size_t pos = s1.find('.');
+	string suffix = s1.substr(pos);
+	cout << suffix << endl;
+}
+//============================================
+//ÔËËã·ûÖØÔØ
+void Test08()
+{
+	string s1("hello");
 
+	string s2 = s1 + "world";
+	cout << s2 << endl;
+
+	string s3 = "world" + s1;
+	cout << s3 << endl;
 }
 
 int main()
@@ -177,8 +192,9 @@ int main()
 	//Test03();
 	//Test04();
 	//Test05();
-	Test06();
+	//Test06();
 	//Test07();
+	Test08();
 
 	return 0;
 }
