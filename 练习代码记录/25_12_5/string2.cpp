@@ -19,6 +19,7 @@ void Test01()
 	cout << s1 << endl << endl;
 }
 
+//============================================
 void Test02()
 {
 	string s1("hello world");
@@ -29,11 +30,6 @@ void Test02()
 		cout << *it << " ";
 	}
 	cout << endl;
-}
-
-void Test03()
-{
-	string s1("hello world");
 
 	// 使用反向迭代器遍历字符串
 	for (auto it = s1.rbegin(); it != s1.rend(); ++it)
@@ -43,7 +39,8 @@ void Test03()
 	cout << endl;
 }
 
-void Test04()
+//============================================
+void Test03()
 {
 	//头插（insert接口）
 	string s1("hello world");
@@ -71,7 +68,8 @@ void Test04()
 
 }
 
-void Test05()
+//============================================
+void Test04()
 {
 	//erase固定位置删除
 	string s1("hello world");
@@ -89,24 +87,41 @@ void Test05()
 	s1.erase(--s1.end());
 	cout << s1 << endl << endl;
 
-	//默认删除第六位后面全部字符
 	string s2("hello world");
+	//默认删除第六位后面全部字符
 	s2.erase(6);
 	cout << s2 << endl << endl;
 
-	
+	//find+replace将' '换成其他字符
+	//1.在s3内改变（要一直移字符，性能消耗多）
+	string s3("hello        world");
+	size_t pos = s3.find(' ');
+	while (pos != string::npos)
+	{
+		s3.replace(pos, 1, "%%");
+		cout << s3 << endl;
+
+		pos = s3.find(' ', pos + 2);
+	}
+	cout << endl;
+
+	//2.利用新空间拷贝一份
+	string s4("hello        world");
+	string tmp;
+	tmp.reserve(s4.size());
+	for (auto ch : s4)
+	{
+		if (ch == ' ')//当为空，则加‘%%’
+			tmp += "%%";
+		else//获取字符
+			tmp += ch;
+
+		cout << tmp << endl;
+	}
 }
 
-void Test06()
-{
-	string s1("hello world");
-
-	int pos = s1.find(' ');
-	
-	cout << s1 << endl;
-}
-
-void Test07()
+//============================================
+void Test05()
 {
 	string s2("hello worldxxxxxxxxxxxxx");
 	cout << s2.size() << endl;
@@ -133,13 +148,36 @@ void Test07()
 
 }
 
+//============================================
+//文件读写
+void Test06()
+{
+	string file;
+	cin >> file;
+	FILE* fout = fopen(file.c_str(), "r");
+	char ch = fgetc(fout);
+	while (ch != EOF)
+	{
+		cout << ch;
+		ch = fgetc(fout);
+	}
+	fclose(fout);
+}
+
+//============================================
+void Test07()
+{
+
+}
+
 int main()
 {
 	//Test01();
 	//Test02();
 	//Test03();
 	//Test04();
-	Test05();
+	//Test05();
+	Test06();
 	//Test07();
 
 	return 0;
