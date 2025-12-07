@@ -60,6 +60,9 @@ namespace yuuki
 		void append(char* str);
 		string& operator+=(char* str);
 
+		void insert(char ch);
+		void insert(char* str);
+
 	private:
 		char* _str;
 		int _size;

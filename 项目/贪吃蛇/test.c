@@ -23,6 +23,11 @@ void test()
 		GameEnd(&snake);
 		SetPos(0, 27);
 
+		SetPos(20, 15);
+		printf("再来一局吗?(Y/N):");
+		ch = getchar();
+		getchar() != '\n';//清理Y
+
 	} while (ch == 'Y' || ch == 'y');
 	SetPos(0, 27);
 }
