@@ -1,33 +1,36 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include"snake.h"
+#include"Snake.h"
+#include<locale.h>
 
-//完成的是游戏的测试逻辑
 void test()
 {
-	//创建贪吃蛇
-	Snake snake = { 0 };
+	int ch = 0;
+	do
+	{
+		//每一次清理一次屏幕信息
+		system("cls");
 
-	//初始化游戏
-	//0. 光标隐藏
-	//1. 打印欢迎界面
-	//2. 功能介绍
-	//3. 绘制地图
-	//4. 创建蛇
-	//5. 创建食物
-	//6. 设置游戏的相关信息
-	GameStart(&snake);
+		//创建
+		Snake snake = { 0 };
 
-	//运行游戏
-	//GameRun();
+		//初始化
+		GameStart(&snake);
 
-	//结束游戏 - 善后工作
-	//GameEend();
+		//运行
+		GameRun(&snake);
+
+		//结束
+		GameEnd(&snake);
+		SetPos(0, 27);
+
+	} while (ch == 'Y' || ch == 'y');
+	SetPos(0, 27);
 }
 
 int main()
 {
-	//设置适配本地环境
 	setlocale(LC_ALL, "");
+	srand((unsigned int)time(NULL));
 
 	test();
 	return 0;
