@@ -47,6 +47,18 @@ namespace yuuki
 			strcpy(_str, str);
 		}
 
+		//s2(s1)
+		string(const string& str)
+		{
+			_str = new char[str._capacity + 1];
+			strcpy(_str, str._str);
+			_size = str._size;
+			_capacity = str._capacity;
+		}
+
+		//s2 = s1
+		string& operator=(const string& str);
+
 		~string()
 		{
 			delete[] _str;
@@ -93,6 +105,10 @@ namespace yuuki
 		void insert(size_t pos, const char* str);
 		void erase(size_t pos, size_t = npos);
 
+		size_t find(char ch, size_t pos = 0);
+		size_t find(char* str, size_t pos = 0);
+		string substr(size_t pos = 0, size_t len = npos);
+
 	private:
 		char* _str;
 		int _size;
@@ -103,4 +119,6 @@ namespace yuuki
 
 	void test_string1();
 	void test_string2();
+	void test_string3();
+	void test_string4();
 }
