@@ -172,32 +172,7 @@ namespace yuuki
 		}
 	}
 
-	string string::substr(size_t pos, size_t len)
-	{
-		assert(pos < _size);
+	
 
-		if (len > _size - pos)
-		{
-			len = _size - pos;
-		}
-
-		string sub;
-		sub.reserve(len);
-		for (size_t i = 0; i < len; ++i)
-		{
-			sub += _str[pos + i];
-		}
-
-		return sub;
-	}
-
-	string& string::operator=(const string& str)
-	{
-		delete[] _str;
-		char* ptr = new char[str._capacity + 1];
-		_size = str._size;
-		_capacity = str._capacity;
-
-		return *this;
-	}
+	
 }
