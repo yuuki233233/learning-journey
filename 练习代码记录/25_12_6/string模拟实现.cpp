@@ -239,4 +239,37 @@ namespace yuuki
 	{
 		return !(s1 == s2);
 	}
+
+	ostream& operator<<(ostream& out, const string& s)
+	{
+		for (auto x : s)
+		{
+			out << x;
+		}
+
+		return out;
+	}
+
+	istream& operator>>(istream& in, string& s)
+	{ 
+		in.clear();
+
+		char ch;
+		//in >> ch;
+
+		//读取输入中的每一个字符(包括' '和'\0')
+		//字符串类型编译器会省略空格继续读取下一个字符
+		ch = in.get();
+
+		while (ch != ' ' && ch != '\0')
+		{
+			s += ch;
+
+			//in >> ch;
+			//获取输入的单个字符
+			ch = in.get();
+		}
+
+		return in;
+	}
 }
