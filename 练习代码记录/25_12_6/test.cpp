@@ -109,7 +109,17 @@ namespace yuuki
 		//运算符重载必须有个类类型的参数才能用隐式比较
 		//cout << ("hello world" == "hello world") << endl;
 
+	}
 
+	void test_string6()
+	{
+		string s1("hello");
+		string s2("world");
+		cout << s1 << s2 << endl;
+
+		string ss1;
+		cin >> ss1;
+		cout << ss1 << endl;
 	}
 }
 
@@ -119,7 +129,8 @@ int main()
 	//yuuki::test_string2();
 	// yuuki::test_string3();
 	//yuuki::test_string4();
-	yuuki::test_string5();
+	//yuuki::test_string5();
+	yuuki::test_string6();
 
 	return 0;
 }
