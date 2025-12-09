@@ -191,13 +191,42 @@ namespace yuuki
 		return sub;
 	}
 
+	// s2 = s1
 	string& string::operator=(const string& str)
 	{
-		delete[] _str;
-		char* ptr = new char[str._capacity + 1];
-		_size = str._size;
-		_capacity = str._capacity;
+		// s1 = s1(深拷贝)
+		if (this != &str)
+		{
+			delete[] _str;
+			_str = new char[str._capacity + 1];
+			_size = str._size;
+			_capacity = str._capacity;
+		}
 
 		return *this;
 	}
+
+	//比较字符串大小可用strcmp
+	bool operator<(const string& s1, const string& s2)
+	{
+		return strcmp(s1.c_str(), s2.c_str()) < 0;
+	}
+
+	bool operator==(const string& s1, const string& s2)
+	{
+		return strcmp(s1.c_str(), s2.c_str()) == 0;
+	}
+
+	//复用方法(上面的比较需满足下列比较条件)
+	bool operator<=(const string& s1, const string& s2)
+	{
+		
+	}
+
+	bool operator>(const string& s1, const string& s2);
+	bool operator>=(const string& s1, const string& s2);
+
+
+	
+	bool operator!=(const string& s1, const string& s2);
 }

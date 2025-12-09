@@ -108,7 +108,6 @@ namespace yuuki
 		size_t find(char ch, size_t pos = 0);
 		size_t find(char* str, size_t pos = 0);
 		string substr(size_t pos = 0, size_t len = npos);
-
 	private:
 		char* _str;
 		int _size;
@@ -116,6 +115,13 @@ namespace yuuki
 
 		static const size_t npos;
 	};
+
+	bool operator<(const string& s1, const string& s2);
+	bool operator<=(const string& s1, const string& s2);
+	bool operator>(const string& s1, const string& s2);
+	bool operator>=(const string& s1, const string& s2);
+	bool operator==(const string& s1, const string& s2);
+	bool operator!=(const string& s1, const string& s2);
 
 	void test_string1();
 	void test_string2();
