@@ -217,7 +217,7 @@ namespace yuuki
 		return strcmp(s1.c_str(), s2.c_str()) == 0;
 	}
 
-	//复用方法(上面的比较需满足下列比较条件)
+	//复用方法(下列比较条件需要满足上面的比较使用)
 	bool operator<=(const string& s1, const string& s2)
 	{
 		return s1 < s2 || s1 == s2;
