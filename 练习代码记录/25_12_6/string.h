@@ -17,7 +17,17 @@ namespace yuuki
 			return _str;
 		}
 
+		const_iterator begin() const
+		{
+			return _str;
+		}
+
 		iterator end()
+		{
+			return _str + _size;
+		}
+
+		const_iterator end() const
 		{
 			return _str + _size;
 		}
@@ -69,6 +79,12 @@ namespace yuuki
 		const char* c_str() const
 		{
 			return _str;
+		}
+
+		void clear()
+		{
+			_str[0] = '\0';
+			_size = 0;
 		}
 
 		size_t size() const
@@ -128,4 +144,9 @@ namespace yuuki
 	void test_string3();
 	void test_string4();
 	void test_string5();
+	void test_string6();
+
+
+	ostream& operator<<(ostream& out, const string& s);
+	istream& operator>>(istream& in, string& s);
 }
