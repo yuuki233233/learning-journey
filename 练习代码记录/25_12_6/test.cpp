@@ -102,9 +102,12 @@ namespace yuuki
 		cout << (s1 < s2) << endl;	//0
 		cout << (s1 <= s2) << endl;	//1
 
-		//
-		cout << (s1 < "hello world") << endl;
-		cout << ("hello world" <= s2) << endl;
+		//隐式类型转化成string
+		cout << (s1 < "hello world") << endl;	//0
+		cout << ("hello world" <= s2) << endl;	//1
+
+		//运算符重载必须有个类类型的参数才能用隐式比较
+		//cout << ("hello world" == "hello world") << endl;
 
 
 	}
