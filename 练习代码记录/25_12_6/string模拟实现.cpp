@@ -172,6 +172,7 @@ namespace yuuki
 		}
 	}
 
+	//返回了创建的变量，需深拷贝(浅拷贝会释放两次同个空间)
 	string string::substr(size_t pos, size_t len)
 	{
 		assert(pos < _size);
