@@ -1,6 +1,19 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"date.h"
 
+bool Date::CheckDate()
+{
+	if (_month < 1 || _month > 12
+		|| _day < 1 || _day > GetMonthDay(_year, _month))
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
 Date& Date::operator=(const Date& d)
 {
 	_year = d._year;
@@ -52,9 +65,60 @@ bool Date::operator<(const Date& d)
 	return !(*this >= d);
 }
 
-
-
 bool Date::operator!=(const Date& d)
 {
 	return !(*this == d);
+}
+
+Date& Date::operator+=(int day)
+{
+	if (day < 0)
+		return *this -= (-day);
+
+	_day += day;
+	while (_day > GetMonthDay(_year, _month))
+	{
+		_day -= GetMonthDay(_year, _month);
+		++_month;
+
+		if (_month == 13)
+		{
+			_month = 1;
+			++_year;
+		}
+	}
+
+	return *this;
+}
+
+Date Date::operator+(int day)
+{
+	*this = *this + day;
+	return *this;
+}
+
+Date& Date::operator-=(int day)
+{
+	if (day < 0)
+		return *this += (-day);
+
+	_day -= day;
+	while (_day > 0)
+	{
+		--_month;
+		if (_month == 0)
+		{
+			_month = 12;
+			--_year;
+		}
+		_day += GetMonthDay(_year, _month);
+	}
+
+	return *this;
+}
+
+Date Date::operator-(int day)
+{
+	*this = *this - day;
+	return *this;
 }
