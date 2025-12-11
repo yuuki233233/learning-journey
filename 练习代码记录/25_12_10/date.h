@@ -67,6 +67,8 @@ public:
 	Date& operator--();
 	Date operator--(int);
 
+	friend ostream& operator<<(ostream& out, const Date& d);
+	friend istream& operator>>(istream& in, Date& d);
 
 private:
 	int _year;
@@ -74,4 +76,5 @@ private:
 	int _day;
 };
 
-void test_date01();
+ostream& operator<<(ostream& out, const Date& d);
+istream& operator>>(istream& in, Date& d);
