@@ -103,7 +103,7 @@ Date& Date::operator-=(int day)
 		return *this += (-day);
 
 	_day -= day;
-	while (_day > 0)
+	while (_day <= 0)
 	{
 		--_month;
 		if (_month == 0)
@@ -121,4 +121,19 @@ Date Date::operator-(int day)
 {
 	*this = *this - day;
 	return *this;
+}
+
+ostream& operator<<(ostream& out, const Date& d)
+{
+	out << d._year << "year/" << d._month << "month/" << d._day << "day" << endl;
+
+	return out;
+}
+
+istream& operator>>(istream& in, Date& d)
+{
+	cout << "请输入年月日:>";
+	in >> d._year >> d._month >> d._day;
+
+	return in;
 }
