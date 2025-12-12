@@ -82,7 +82,7 @@ namespace yuuki233233
 		int _size;
 		int _capacity;
 
-		static int npos;
+		static const size_t npos;
 	};
 
 	ostream& operator<<(ostream& out, const string& s);
