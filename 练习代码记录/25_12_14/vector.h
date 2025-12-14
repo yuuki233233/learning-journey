@@ -10,7 +10,39 @@ namespace yuuki
 	{
 	public:
 		typedef T* iterator;
+		typedef const T* const_iterator;
+
+		iterator begin()
+		{
+			return _start;
+		}
+
+		iterator end()
+		{
+			return _finish;
+		}
+
+		const_iterator begin() const
+		{
+			return _start;
+		}
+
+		const_iterator end() const
+		{
+			return _finish;
+		}
+
+		size_t size() const
+		{
+			return _finish - _start;
+		}
+
 		
+		size_t capacity() const
+		{
+			return _end_of_storage - _start;
+		}
+
 		void reserve(size_t n)
 		{
 			if (n > capacity())
@@ -26,6 +58,52 @@ namespace yuuki
 				_finish = tmp + old_size;
 				_end_of_storage = _start + n;
 			}
+		}
+
+		// 存在限制，用double类型则调用不了，可以考虑用模板
+		/*void print_vector(const vector<int>& v)
+		{
+			for (size_t i = 0; i < v.size(); ++i)
+			{
+				cout << v[i] << " ";
+			}
+			cout << endl;
+
+			vector<int>::const_iterator it = v.begin();
+			while (it != v.end())
+			{
+				cout << *it << " ";
+				++it;
+			}
+			cout << endl;
+
+			for (auto E : v)
+			{
+				cout << E << " ";
+			}
+			cout << endl;
+		}*/
+
+		template<class T>
+		void print_vector(const vector<T>& v)
+		{
+			// 规定，没有实例化的类模板里面取东西，编译器不能区分这里const_iterator
+			// 是类型还是静态成员变量
+			//typename vector<T>::const_iterator it = v.begin();
+			auto it = v.begin();
+
+			while (it != v.end())
+			{
+				cout << *it << " ";
+				++it;
+			}
+			cout << endl;
+
+			for (auto E : v)
+			{
+				cout << E << " ";
+			}
+			cout << endl;
 		}
 
 		void push_back(char ch)
@@ -53,26 +131,9 @@ namespace yuuki
 			return _start[pos];
 		}
 
-		size_t size()
-		{
-			return _finish - _start;
-		}
+		
 
-		size_t capacity()
-		{
-
-			return _end_of_storage - _start;
-		}
-
-		iterator begin()
-		{
-			return _start;
-		}
-
-		iterator end()
-		{
-			return _finish;
-		}
+		
 
 	private:
 		iterator _start = nullptr;
@@ -89,24 +150,15 @@ namespace yuuki
 		v.push_back(4);
 		v.push_back(5);
 
-		for (size_t i = 0; i < v.size(); ++i)
-		{
-			cout << v[i] << " ";
-		}
-		cout << endl;
+		v.print_vector(v);
 
-		vector<int>::iterator it = v.begin();
-		while (it != v.end())
-		{
-			cout << *it << " ";
-			++it;
-		}
-		cout << endl;
-
-		for (auto E : v)
-		{
-			cout << E << " ";
-		}
-		cout << endl;
+		vector<double> vd;
+		v.push_back(1.1);
+		v.push_back(2.2);
+		v.push_back(3.3);
+		v.push_back(4.4);
+		v.push_back(5.5);
+		
+		vd.print_vector(vd);
 	}
 }
