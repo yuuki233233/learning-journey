@@ -74,7 +74,6 @@ namespace yuuki
 			}
 		}
 
-		template<class T>
 		void push_back(T ch)
 		{
 			if (_start == _finish)
@@ -100,7 +99,22 @@ namespace yuuki
 		//用迭代器实现
 		void insert(iterator pos, const T& x)
 		{
+			if (_finish == _end_of_storage)
+			{
+				size_t len = pos - _start; //当插入时扩容，迭代器会失效(pos指向旧空间)
+				reserve(capacity() == 0 ? 4 : capacity() * 2);
+				pos = _start + len;
+			}
 
+			iterator end = _finish - 1;
+			while (end >= pos)
+			{
+				*(end + 1) = *end;
+				--end;
+			}
+			*pos = x;
+
+			++_finish;
 		}
 
 		
@@ -195,5 +209,29 @@ namespace yuuki
 		vd.push_back(5.5);
 		
 		print_vector(vd);
+	}
+
+	void test_vector2()
+	{
+		vector<int> v;
+		v.push_back(1);
+		v.push_back(2);
+		v.push_back(3);
+		v.push_back(4);
+		print_vector(v);
+
+		v.insert(v.begin(), 30);
+		print_vector(v);
+
+		int x;
+		cin >> x;
+		auto p = find(v.begin(), v.end(), x);
+		if (p != v.end())
+		{
+			// insert以后p就是失效，不要直接访问，要访问就要更新这个失效的迭代器的值
+			v.insert(p, 40);
+			//(*p) *= 10;
+		}
+		print_vector(v);
 	}
 }
