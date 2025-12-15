@@ -56,8 +56,6 @@ namespace yuuki
 			return _start[i];
 		}
 
-		
-
 		void reserve(size_t n)
 		{
 			if (n > capacity())
@@ -82,6 +80,39 @@ namespace yuuki
 
 			*_finish = x;
 			++_finish;
+		}
+
+		void insert(iterator pos, const T& x)
+		{
+			if (_finish == _end_of_stor)
+			{
+				//解决迭代器失效
+				size_t old_pos = pos - _start;
+				reserve(capacity() == 0 ? 4 : capacity() * 2);
+				pos = _start + old_pos;
+			}
+
+			iterator end = _finish - 1;
+			while (end >= pos)
+			{
+				*(end + 1) = *end;
+				--end;
+			}
+
+			*pos = x;
+			++_finish;
+		}
+
+		bool empty()
+		{
+			return _start == _finish;
+		}
+
+		void pop_back()
+		{
+			assert(!empty());
+
+			--_finish;
 		}
 
 	private:
@@ -151,5 +182,28 @@ namespace yuuki
 		vd.push_back(1.5);
 
 		print_vector(vd);
+	}
+
+	void test_vector2()
+	{
+		vector<int> v;
+		v.push_back(1);
+		v.push_back(2);
+		v.push_back(3);
+		v.insert(v.begin() + 3, 30);
+		v.push_back(4);
+		print_vector(v);
+
+		int x;
+		cin >> x;
+		auto p = find(v.begin(), v.end(), x);
+		if (p != v.end())
+		{
+			// insert以后p就是失效，不要直接访问，要访问就要更新这个失效的迭代器的值
+			v.insert(p, 40);
+			(*p) *= 10;
+		}
+		print_vector(v);
+
 	}
 }
