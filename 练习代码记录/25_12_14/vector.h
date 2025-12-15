@@ -12,6 +12,68 @@ namespace yuuki
 		typedef T* iterator;
 		typedef const T* const_iterator;
 
+		/*vector()		
+		{}*/
+
+		// C++11 前置生成默认构造
+		vector() = default;
+
+		// v2(*this) = v1
+		vector(const vector<T>& v)
+		{
+			reserve(size());
+			for (auto& e : v)
+			{
+				push_back(e);
+			}
+		}
+
+		void clear()
+		{
+			_finish = _start;
+		}
+
+		// v2 = v1 (传统写法)
+		//vector operator=(const vector<T>& v)
+		//{
+		//	if (this != &v)
+		//	{
+		//		//this
+		//		clear();
+		//		reserve(v.size());
+		//		for (auto& e : v)
+		//		{
+		//			push_back(e);
+		//		}
+		//	}
+
+		//	return *this;
+		//}
+
+		// v2 = v1 (现代写法)
+		void swap(vector<T>& v)
+		{
+			std::swap(_start, v._start);
+			std::swap(_finish, v._finish);
+			std::swap(_end_of_storage, v._end_of_storage);
+		}
+
+		vector<T> operator=(vector<T> v)
+		{
+			swap(v);
+
+			return *this;
+		}
+
+		~vector()
+		{
+			if (_start)
+			{
+				delete[] _start;
+				_start = _finish = _end_of_storage = nullptr;
+			}
+		}
+
 		iterator begin()
 		{
 			return _start;
@@ -307,6 +369,18 @@ namespace yuuki
 		print_vector(v);
 
 		v.resize(5);
+		print_vector(v);
+		
+		vector<int> v2 = v;
+
+		cout << endl;
+
+		vector<int> v3;
+		v3.push_back(10);
+		v3.push_back(20);
+		v3.push_back(30);
+
+		v = v3;
 		print_vector(v);
 	}
 }
