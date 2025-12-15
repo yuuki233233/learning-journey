@@ -3,7 +3,8 @@
 
 int main()
 {
-	yuuki::test_vector1();
+	//yuuki::test_vector1();
+	yuuki::test_vector2();
 
 	return 0;
 }
