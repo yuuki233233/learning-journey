@@ -117,6 +117,20 @@ namespace yuuki
 			++_finish;
 		}
 
+		iterator erase(iterator pos)
+		{
+			assert(pos >= _start && pos < _finish);
+
+			iterator it = pos + 1;
+			while (it < end())
+			{
+				*(it - 1) = *it;
+				++it;
+			}
+
+			--_finish;
+			return pos; // 返回删除后的位置
+		}
 		
 	private:
 		iterator _start = nullptr;
@@ -233,5 +247,31 @@ namespace yuuki
 			//(*p) *= 10;
 		}
 		print_vector(v);
+	}
+
+	void test_vector3()
+	{
+		vector<int> v;
+		v.push_back(1);
+		v.push_back(2);
+		v.push_back(3);
+		v.push_back(4);
+		v.insert(v.begin() + 2, 20);
+		print_vector(v);
+
+		vector<int>::iterator it = v.begin();
+		while (it != v.end())
+		{
+			if (*it % 2 == 0)
+			{
+				it = v.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+		print_vector(v);
+
 	}
 }
