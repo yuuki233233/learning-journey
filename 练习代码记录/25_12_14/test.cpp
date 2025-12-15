@@ -4,7 +4,8 @@
 int main()
 {
 	//yuuki::test_vector1();
-	yuuki::test_vector2();
+	//yuuki::test_vector2();
+	yuuki::test_vector3();
 
 	return 0;
 }
