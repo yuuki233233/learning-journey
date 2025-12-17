@@ -192,9 +192,24 @@ void test_list05() //unique
 
 }
 
+void test1()
+{
+	list<int> l1; // 无参构造：创建空list
+
+	list<int> l2(10, 1); // 构造并初始化10个1
+
+	list<int> l3(l2.begin(), l2.end()); // 迭代器区间构造
+	print(l3);
+
+	print(l3);
+	// 在链表中不适用 (l2.begin()+3);
+	//list<int> l3(l2.begin() + 3, l2.end());
+	
+}
+
 int main()
 {
-	test_list05();
+	test1();
 
 	return 0;
 }
