@@ -20,6 +20,7 @@ namespace yuuki
 		{ }
 	};
 
+	// 迭代器
 	template<class T>
 	struct list_iterator
 	{
@@ -27,13 +28,21 @@ namespace yuuki
 		typedef list_iterator<T> Self;
 		Node* _node;
 
+		// 构造
 		list_iterator(Node* node)
 			:_node(node)
 		{ }
 
+		// 解迭代器的引用 (*it)
 		T& operator*()
 		{
 			return _node->_data;
+		}
+
+		// 结构体箭头的重载 (it->_a1)
+		T* operator->()
+		{
+			return &_node->_data;
 		}
 
 		Self& operator++()
@@ -48,6 +57,20 @@ namespace yuuki
 			return *this;
 		}
 
+		Self operator++(int)
+		{
+			Self tmp(*this);
+			_node = _node->_next;
+			return tmp;
+		}
+
+		Self operator--(int)
+		{
+			Self tmp(*this);
+			_node = _node->_prev;
+			return tmp;
+		}
+
 		bool operator!=(const Self& s) const
 		{
 			return _node != s._node;
@@ -59,7 +82,7 @@ namespace yuuki
 		}
 	};
 
-	// 结构
+	// 链表结构
 	template<class T>
 	class list
 	{
@@ -67,6 +90,7 @@ namespace yuuki
 	public: 
 		typedef list_iterator<T> iterator;
 
+		// 头为哨兵位前一个节点
 		iterator begin()
 		{
 			/*iterator it(_head->_next); // 有名对象
@@ -77,6 +101,7 @@ namespace yuuki
 			return _head->_next; // 隐式类型转换
 		}
 
+		// 尾为哨兵位
 		iterator end()
 		{
 			return _head;
@@ -107,11 +132,13 @@ namespace yuuki
 			insert(end(), x);
 		}
 
+		// 头插
 		void push_front(const T& x)
 		{
 			insert(begin(), x);
 		}
 
+		// 删除指定迭代器的位置
 		void erase(iterator pos)
 		{
 			assert(pos != end());
@@ -125,16 +152,19 @@ namespace yuuki
 			--_size;
 		}
 
+		// 尾删
 		void pop_back()
 		{
 			erase(--end());
 		}
 
+		// 头删
 		void pop_front()
 		{
 			erase(begin());
 		}
 
+		// 固定位置插入
 		void insert(iterator pos, const T& x)
 		{
 			Node* cur = pos._node;
@@ -167,8 +197,26 @@ namespace yuuki
 		size_t _size;
 	};
 
+	struct AA
+	{
+		int _a1 = 1;
+		int _a2 = 1;
+	};
+
+	// 支持所有容器
+	template<class Container>
+	void print_container(Container& v)
+	{
+		for (auto e : v)
+		{
+			cout << e << " ";
+		}
+		cout << endl;
+	}
+	
 	void test_list01()
 	{
+		// 单类型
 		list<int> lt1;
 		lt1.push_back(1);
 		lt1.push_back(2);
@@ -182,6 +230,28 @@ namespace yuuki
 			++it;
 		}
 		cout << endl;
+
+		// 结构体
+		list<AA> lta;
+		lta.push_back(AA());
+		lta.push_back(AA());
+		lta.push_back(AA());
+		lta.push_back(AA());
+		list<AA>::iterator ita = lta.begin();
+		while (ita != lta.end())
+		{
+			//cout << (*ita)._a1 << ":" << (*ita)._a2;
+			// 特殊处理，本来应该是两个(->)才合理，为了可读性，省略了一个(->)
+			cout << (ita.operator->())->_a1 << ":" << ita->_a2 << "  ";
+			++ita;
+		}
+		cout << endl;
+
+		print_container(lt1);
 	}
 
+	void test_list02()
+	{
+
+	}
 }
