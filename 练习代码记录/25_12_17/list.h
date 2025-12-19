@@ -82,6 +82,69 @@ namespace yuuki
 		}
 	};
 
+	// 迭代器
+	template<class T>
+	struct list_const_iterator
+	{
+		typedef list_node<T> Node;
+		typedef list_const_iterator<T> Self;
+		Node* _node;
+
+		// 构造
+		list_const_iterator(Node* node)
+			:_node(node)
+		{
+		}
+
+		// 解迭代器的引用 (*it)
+		const T& operator*()
+		{
+			return _node->_data;
+		}
+
+		// 结构体箭头的重载 (it->_a1)
+		const T* operator->()
+		{
+			return &_node->_data;
+		}
+
+		Self& operator++()
+		{
+			_node = _node->_next;
+			return *this;
+		}
+
+		Self& operator--()
+		{
+			_node = _node->_prev;
+			return *this;
+		}
+
+		Self operator++(int)
+		{
+			Self tmp(*this);
+			_node = _node->_next;
+			return tmp;
+		}
+
+		Self operator--(int)
+		{
+			Self tmp(*this);
+			_node = _node->_prev;
+			return tmp;
+		}
+
+		bool operator!=(const Self& s) const
+		{
+			return _node != s._node;
+		}
+
+		bool operator==(const Self& s) const
+		{
+			return _node == s._node;
+		}
+	};
+
 	// 链表结构
 	template<class T>
 	class list
@@ -89,6 +152,7 @@ namespace yuuki
 		typedef list_node<T> Node;
 	public: 
 		typedef list_iterator<T> iterator;
+		typedef list_const_iterator<T> const_iterator;
 
 		// 头为哨兵位前一个节点
 		iterator begin()
@@ -103,6 +167,16 @@ namespace yuuki
 
 		// 尾为哨兵位
 		iterator end()
+		{
+			return _head;
+		}
+
+		const_iterator const_begin() const
+		{
+			return _head->_next;
+		}
+
+		const_iterator const_end() const
 		{
 			return _head;
 		}
@@ -204,9 +278,22 @@ namespace yuuki
 	};
 
 	// 支持所有容器
+	// 按需实例化
 	template<class Container>
 	void print_container(Container& v)
 	{
+		// const iterator -> 迭代器本身不能修改
+		// const_iterator -> 指向内容不能修改
+
+		list<int>::const_iterator it = v.const_begin();
+		while (it != v.const_begin())
+		{
+			// const迭代器只读不写
+			//*it += 10; 
+			cout << *it << " ";
+			++it;
+		}
+
 		for (auto e : v)
 		{
 			cout << e << " ";
@@ -226,6 +313,12 @@ namespace yuuki
 		list<int>::iterator it = lt1.begin();
 		while (it != lt1.end())
 		{
+			// const迭代器不能修改
+			// *it += 10;
+
+			// 普通迭代器可以修改
+			*it += 10;
+
 			cout << *it << " ";
 			++it;
 		}
