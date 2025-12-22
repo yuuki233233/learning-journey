@@ -103,7 +103,6 @@ void test_list02() //emplace与push差别
 	cout << endl;
 
 	lt.emplace_back(1, 1); //支持直接传构造A的参数
-
 }
 
 void test_list03() //insert find erase
