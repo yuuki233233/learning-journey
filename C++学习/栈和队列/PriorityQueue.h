@@ -34,9 +34,10 @@ namespace yuuki
 			while (child > 0)
 			{
 				// ´ó¶Ñ
-				if (_con[child] > _con[parent])
+				//if (_con[child] > _con[parent])
+				if(com(_con[parent], _con[child]))
 				{
-					swap(_con[child], _con[parent]);
+					swap(_con[parent], _con[child]);
 					child = parent;
 					parent = (child - 1) / 2;
 				}
@@ -59,12 +60,12 @@ namespace yuuki
 			size_t child = (parent * 2) + 1;
 			while (child > _con.size())
 			{
-				if (child + 1 < _con.size() && _con[child + 1] > _con[child])
+				if (child + 1 < _con.size() && com(_con[parent], _con[child]))
 				{
 					++child;
 				}
 
-				if (_con[child] > _con[parent])
+				if (com(_con[parent], _con[child]))
 				{
 					swap(_con[child], _con[parent]);
 					parent = child;
