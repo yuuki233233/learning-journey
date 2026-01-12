@@ -95,50 +95,207 @@ using namespace std;
 
 //————————————————————————————————————————协变
 
-class A {}; // 基类
-class B : public A {}; // 派生类继承基类
+//class A {}; // 基类
+//class B : public A {}; // 派生类继承基类
+//
+//class Animal
+//{
+//public:
+//	virtual A* func()
+//	{
+//		return nullptr; // 虚函数必须返回一个值
+//	}
+//};
+//
+//class Cat : public Animal
+//{
+//public:
+//	virtual B* func()
+//	{
+//		cout << "miao~" << endl;
+//		return nullptr; // 虚函数必须返回一个值
+//	}
+//};
+//
+//class Dog : public Animal
+//{
+//public:
+//	virtual B* func()
+//	{
+//		cout << "wan~" << endl;
+//		return nullptr; // 虚函数必须返回一个值
+//	}
+//};
+//
+//void test(Animal* a) // 基类的指针或引用
+//{
+//	a->func();
+//}
+//
+//int main()
+//{
+//	Cat cat;
+//	Dog dog;
+//
+//	test(&cat); // 引用
+//	test(&dog); // 引用
+//
+//	return 0;
+//}
+
+
+//————————————————————————————————析构函数
+
+//class A
+//{
+//public:
+//	virtual ~A() // 基类中需将A的析构写成虚函数
+//	{
+//		cout << "~A" << endl;
+//	}
+//};
+//
+//class B : public A
+//{
+//	~B()
+//	{
+//		cout << "~B()->delete:" << _p << endl;
+//		delete _p;
+//	}
+//
+//protected:
+//	int* _p;
+//};
+//
+//int main()
+//{
+//	A* p1 = new A;
+//	A* p2 = new B;
+//
+//	delete p1;
+//	delete p2;
+//
+//	return 0;
+//}
+
+
+//——————————————————————————————————override和final
+
+//class Car
+//{
+//public:
+//	virtual void Dirve()
+//	{ }
+//};
+//
+//class Benz : public Car
+//{
+//public:
+//	virtual void Dirve() override
+//	{
+//		cout << "Benz" << endl;
+//	}
+//};
+//
+//class BMW : public Car
+//{
+//public:
+//	void Dirve() override
+//	{
+//		cout << "BWM" << endl;
+//	}
+//};
+//
+//void func(Car* c)
+//{
+//	c->Dirve();
+//}
+//
+//int main()
+//{
+//	Benz b1;
+//	BMW b2;
+//
+//	func(&b1);
+//	func(&b2);
+//
+//	return 0;
+//}
+
+
+//class Car
+//{
+//public:
+//	virtual void Dirve()
+//	{
+//		cout << "Dirve" << endl;
+//	}
+//};
+//
+//class Benz :public Car
+//{
+//public:
+//	virtual void Drive() { cout << "Benz" << endl; }
+//};
+//
+//class BMW :public Car
+//{
+//public:
+//	virtual void Drive() { cout << "BMW" << endl; }
+//};
+//
+//void func(Car* c)
+//{
+//	c->Dirve();
+//}
+//
+//int main()
+//{
+//	Benz b1;
+//	func(&b1);
+//
+//	BMW b2;
+//	func(&b2);
+//
+//	return 0;
+//}
+
+//————————————————————————————纯虚函数
 
 class Animal
 {
 public:
-	virtual A* func()
-	{
-		return nullptr; // 虚函数必须返回一个值
-	}
+	virtual void a() = 0; // 纯虚函数写法(类似于创建，之后要初始化)
 };
 
-class Cat : public Animal
+class Cat :public Animal
 {
 public:
-	virtual B* func()
+	virtual void a()
 	{
 		cout << "miao~" << endl;
-		return nullptr; // 虚函数必须返回一个值
 	}
 };
 
-class Dog : public Animal
+class Dog :public Animal
 {
 public:
-	virtual B* func()
+	virtual void a()
 	{
-		cout << "wan~" << endl;
-		return nullptr; // 虚函数必须返回一个值
+		cout << "wang~" << endl;
 	}
 };
-
-void test(Animal* a) // 基类的指针或引用
-{
-	a->func();
-}
 
 int main()
 {
-	Cat cat;
-	Dog dog;
+	// error：无法实例化抽象类
+	//Animal animal;
 
-	test(&cat); // 引用
-	test(&dog); // 引用
+	Animal* pCat = new Cat;
+	pCat->a();
+
+	Animal* pDog = new Dog;
+	pDog->a();
 
 	return 0;
 }
