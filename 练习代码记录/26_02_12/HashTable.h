@@ -31,14 +31,16 @@ struct HashFunc
 template<>
 struct HashFunc<string> // 模板特化
 {
+	// 字符串转换成整形，可以把字符ASCII码值相加
+	// 但是直接相加的话，"abcd"和"bcad"计算出的ASCII码值相同
+	// 这里我们使用BKDR哈希的思路，用上次的计算结果取乘一个质数，这个质数一般是31，131
 	size_t operator()(const string& s)
 	{
 		size_t hash = 0;
 		for (auto ch : s)
 		{
+			hash *= 131; 
 			hash += ch;
-			hash *= 131; // abc 与 cba 的ACSII码值一样
-					     // 这里乘131是为了分辨出大小
 		}
 
 		return hash;
