@@ -345,16 +345,16 @@ public:
 	}
 
 	// 查找接口
-	Node* Find(const K& key)
+	Iterator Find(const K& key)
 	{
 		Node* cur = _root;
 		while (cur)
 		{
-			if (cur->_kv.first < key)
+			if (cur->kot(cur->_data) < kot(key))
 			{
 				cur = cur->_right;
 			}
-			else if (cur->_kv.first > key)
+			else if (cur->kot(cur->_data) > kot(key))
 			{
 				cur = cur->_left;
 			}
@@ -364,7 +364,7 @@ public:
 			}
 		}
 
-		return nullptr;
+		return End();
 	}
 
 	// 获取树的大小
