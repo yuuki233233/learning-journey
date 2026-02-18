@@ -234,6 +234,60 @@ namespace HashBucket
 
 			return true;
 		}
+
+		Node* Find(const K& key)
+		{
+			Hash hash;
+			size_t hashi = hash(key) % _tables.size();
+			Node* cur = _tables[hashi];
+			while (cur)
+			{
+				if (cur->_kv.first == key)
+				{
+					return cur;
+				}
+
+				cur = cur->_next;
+			}
+
+			return nullptr;
+		}
+
+		bool Erase(const K& key)
+		{
+			size_t hashi = key % _tables.size();
+			Node* prev = nullptr;
+			Node* cur = _tables[hashi];
+			while (cur)
+			{
+				if (cur->_kv.first == key)
+				{
+					if (prev == nullptr)
+					{
+						// 头结点
+						_tables[hashi] = cur->_next;
+					}
+					else
+					{
+						// 中间节点
+						prev->_next = cur->_next;
+					}
+
+					delete cur;
+					--_n;
+
+					return true;
+				}
+				else
+				{
+					prev = cur;
+					cur = cur->_next;
+				}
+			}
+
+			return false;
+		}
+
 	private:
 		vector<Node*> _tables; // 指针数组
 		size_t _n = 0;		   // 表中数据个数
