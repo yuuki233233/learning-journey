@@ -12,21 +12,6 @@ public:
 	{
 	}
 
-	Date(const Date& d)
-		:_year(d._year)
-		, _month(d._month)
-		, _day(d._day)
-	{
-	}
-
-	Date& operator=(const Date& d)
-	{
-		_year = d._year;
-		_month = d._month;
-		_day = d._day;
-		return *this;
-	}
-
 	~Date()
 	{
 		cout << "~Date()" << endl;
@@ -38,50 +23,46 @@ public:
 	int _day = 1;
 };
 
+#include<functional>
 namespace yuuki
 {
+	// 因为类里面访问不了构造函数的模板参数
+	// 所以 unique_ptr 实现成 template<class T, class D>
+	// 用删除器时必须传类型，用 lambda 时就特别不方便
 	template<class T>
 	class shared_ptr
 	{
 	public:
-		// sp1 默认构造生成 _pcount 计数为 1
+		//-----------------------------------------------------------------------
+		// 版本1：支持单参数
+			// sp1 默认构造生成 _pcount 计数为 1（有1个模板参数）
 		shared_ptr(T* ptr)
 			:_ptr(ptr)
 			, _pcount(new int(1))
 		{
+		}		// 这里可能会因为没有调用 del 而报错，所以下面写了 lambda 作为缺省值去默认构造 del
+
+	 // shared_ptr 删除器写法(有2个模板参数)
+		template<class D> // D = delete
+		shared_ptr(T* ptr, D del) // 包装器：del 传到默认构造去，D 可能是 lambda、仿函数、函数指针
+			:_ptr(ptr)
+			, _pcount(new int(1))
+			, _del(del) // 难点：需要把删除器保存下来(因为D是构造函数的模板参数，所以定义不了)
+		{
 		}
 
-		// sp2(sp1) _pcount 计数需++
+		// 版本2：支持双参数
+			// sp2(sp1) _pcount 计数需++
 		shared_ptr(const shared_ptr<T>& sp)
 			:_ptr(sp._ptr)
 			, _pcount(sp._pcount)
 		{
 			(*_pcount)++;
 		}
+		//-----------------------------------------------------------------------
 
-		//// sp1 = sp4  sp5 = sp4  sp1 = sp2
-		//shared_ptr<T>& operator=(const shared_ptr<T>& sp)
-		//{
-		//	if (_ptr != sp._ptr)
-		//	{
-		//		if (_ptr)
-		//		{
-		//			delete _ptr;
-		//			delete _pcount;
-		//		}
-		//		_ptr = sp._ptr;
-		//		_pcount = sp._pcount;
-		//		(*_pcount)++;
-		//	}
-		//	else
-		//	{
-		//		return *this;
-		//	}
-		//	
-		//	return *this;
-		//}
 
-		// sp1 = sp4  sp5 = sp4  sp1 = sp2
+			// shared_ptr 现代写法
 		shared_ptr<T>& operator=(const shared_ptr<T>& sp) {
 			if (this != &sp) {  // 防止自赋值
 				if (_ptr != sp._ptr) {  // 防止指向同一块内存（可选，但好习惯）
@@ -102,7 +83,8 @@ namespace yuuki
 		{
 			if (--(*_pcount) == 0)
 			{
-				delete _ptr;
+				//delete _ptr;
+				_del(_ptr);		// 传的是删除器，释放时用删除器释放
 				delete _pcount;
 			}
 		}
@@ -126,51 +108,21 @@ namespace yuuki
 	private:
 		T* _ptr;
 		int* _pcount;
+		//D _del; // 类里面用不了函数模板的参数
+
+		// 包装器：del 传到默认构造去，D 可能是 lambda、仿函数、函数指针
+		function<void(T*)> _del = [](T* ptr) { delete ptr; };
+		// 传 lambda 缺省值，lambda 默认是 delete
+		// 坑：delete[]，会导致程序死循环
 	};
 }
 
 int main()
 {
-	yuuki::shared_ptr<Date> sp1(new Date);
-	yuuki::shared_ptr<Date> sp2(sp1);
-	// 调用拷贝构造，因为 sp3 不存在
-	yuuki::shared_ptr<Date> sp3 = sp2;
-	cout << "sp1.use_count()：" << sp1.use_count() << endl; // 3
+	yuuki::shared_ptr<Date> sp1(new Date); // 这里会因没有调用到 del 而程序崩溃
 
-	yuuki::shared_ptr<Date> sp4(new Date);
-	cout << "sp4.use_count()：" << sp4.use_count() << endl; // 1
-
-
-	sp1->_year++;
-	cout << "sp1->_year：" << sp1->_year << endl; // 2027
-	cout << "sp2->_year：" << sp2->_year << endl; // 2027
-	cout << "sp3->_year：" << sp3->_year << endl; // 2027
-	cout << "sp4->_year：" << sp4->_year << endl; // 2026
-
-
-	/*
-	* 赋值构造
-	* 1. 对象不存在，拷贝构造
-	* 2. 对象存在，赋值构造
-	*/
-
-	// 自己给自己赋值
-	sp1 = sp2;
-	cout << "sp1.use_count()：" << sp1.use_count() << endl; // 3
-
-
-	// 对象不存在，拷贝构造
-	yuuki::shared_ptr<Date> sp5 = sp4;
-	cout << "sp5.use_count()：" << sp5.use_count() << endl; // 2
-
-	// 对象存在，赋值构造
-	sp4 = sp1;
-	cout << "sp1.use_count()：" << sp1.use_count() << endl; // 4
-
-	// 对象存在，赋值构造
-	yuuki::shared_ptr<Date> sp6(new Date);
-	sp1 = sp6;
-	cout << "sp1.use_count()：" << sp1.use_count() << endl; // 2
+	// 定制删除器
+	yuuki::shared_ptr<Date> sp2(new Date[10], [](Date* ptr) {delete[] ptr; });
 
 	return 0;
 }
